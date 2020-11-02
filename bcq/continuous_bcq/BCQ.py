@@ -185,11 +185,10 @@ class BCQ(object):
 				print('iter: {}'.format(it))
 				print('kl_loss: {}'.format(KL_loss))
 				print('recon_loss: {}'.format(recon_loss))
+				print('vae_loss: {}'.format(vae_loss))
 				print('critic_loss: {}'.format(critic_loss/2))
 				print('current_Q1: {}'.format(current_Q1.mean()))
 				print('actor_loss: {}'.format(actor_loss))
-				print(recon.shape)
-				print(std.shape)
 
 
 			# Update Target Networks 
