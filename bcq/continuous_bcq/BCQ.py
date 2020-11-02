@@ -146,6 +146,7 @@ class BCQ(object):
 			vae_loss.backward()
 			self.vae_optimizer.step()
 			if it % 1000 == 0:
+				print('iter: {}'.format(it))
 				print('kl_loss: {}'.format(KL_loss))
 				print('recon_loss: {}'.format(recon_loss))
 
@@ -168,7 +169,6 @@ class BCQ(object):
 			current_Q1, current_Q2 = self.critic(state, action)
 			critic_loss = F.mse_loss(current_Q1, target_Q) + F.mse_loss(current_Q2, target_Q)
 			if it % 1000 == 0:
-				print('iter: {}'.format(it))
 				print('critic_loss: {}'.format(critic_loss/2))
 				print('current_Q1: {}'.format(current_Q1.mean()))
 
