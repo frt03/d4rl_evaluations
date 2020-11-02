@@ -145,10 +145,6 @@ class BCQ(object):
 			self.vae_optimizer.zero_grad()
 			vae_loss.backward()
 			self.vae_optimizer.step()
-			if it % 1000 == 0:
-				print('iter: {}'.format(it))
-				print('kl_loss: {}'.format(KL_loss))
-				print('recon_loss: {}'.format(recon_loss))
 
 
 			# Critic Training
@@ -168,9 +164,6 @@ class BCQ(object):
 
 			current_Q1, current_Q2 = self.critic(state, action)
 			critic_loss = F.mse_loss(current_Q1, target_Q) + F.mse_loss(current_Q2, target_Q)
-			if it % 1000 == 0:
-				print('critic_loss: {}'.format(critic_loss/2))
-				print('current_Q1: {}'.format(current_Q1.mean()))
 
 			self.critic_optimizer.zero_grad()
 			critic_loss.backward()
@@ -187,6 +180,14 @@ class BCQ(object):
 			self.actor_optimizer.zero_grad()
 			actor_loss.backward()
 			self.actor_optimizer.step()
+
+			if it % 1000 == 0:
+				print('iter: {}'.format(it))
+				print('kl_loss: {}'.format(KL_loss))
+				print('recon_loss: {}'.format(recon_loss))
+				print('critic_loss: {}'.format(critic_loss/2))
+				print('current_Q1: {}'.format(current_Q1.mean()))
+				print('actor_loss: {}'.format(actor_loss))
 
 
 			# Update Target Networks 
