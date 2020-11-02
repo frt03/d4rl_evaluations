@@ -181,7 +181,7 @@ class BCQ(object):
 			actor_loss.backward()
 			self.actor_optimizer.step()
 
-			if it % 1000 == 0:
+			if (it != 0 and (it % 1000 == 0)) or it == (iterations - 1):
 				print('iter: {}'.format(it))
 				print('kl_loss: {}'.format(KL_loss))
 				print('recon_loss: {}'.format(recon_loss))
