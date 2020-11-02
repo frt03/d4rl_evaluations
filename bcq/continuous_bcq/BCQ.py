@@ -168,8 +168,9 @@ class BCQ(object):
 			current_Q1, current_Q2 = self.critic(state, action)
 			critic_loss = F.mse_loss(current_Q1, target_Q) + F.mse_loss(current_Q2, target_Q)
 			if it % 1000 == 0:
+				print('iter: {}'.format(it))
 				print('critic_loss: {}'.format(critic_loss/2))
-				print('current_Q1: {}'.format(current_Q1))
+				print('current_Q1: {}'.format(current_Q1.mean()))
 
 			self.critic_optimizer.zero_grad()
 			critic_loss.backward()
