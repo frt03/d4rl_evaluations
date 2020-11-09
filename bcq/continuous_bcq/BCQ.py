@@ -154,11 +154,15 @@ class BCQ(object):
 
 				# Compute value of perturbed actions sampled from the VAE
 				target_Q1, target_Q2 = self.critic_target(next_state, self.actor_target(next_state, self.vae.decode(next_state)))
+				print(state.shape)
+				print(action.shape)
+				print(target_Q1.shape)
 
 				# Soft Clipped Double Q-learning 
 				target_Q = self.lmbda * torch.min(target_Q1, target_Q2) + (1. - self.lmbda) * torch.max(target_Q1, target_Q2)
 				# Take max over each action sampled from the VAE
 				target_Q = target_Q.reshape(batch_size, -1).max(1)[0].reshape(-1, 1)
+				print(target_Q.shape)
 
 				target_Q = reward + not_done * self.discount * target_Q
 
